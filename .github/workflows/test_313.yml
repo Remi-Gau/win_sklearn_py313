@@ -15,14 +15,14 @@
     
     jobs:
         test_and_coverage:
-            name: 'Test with ${{ matrix.py }} on ${{ matrix.os }} with sklearn ${{ sklearn_version }}'
+            name: 'Test with ${{ matrix.py }} on ${{ matrix.os }} with sklearn ${{ matrix.sklearn }}'
             runs-on: ${{ matrix.os }}
             strategy:
                 fail-fast: false
                 matrix:
                     py: ['3.13']
                     os: [windows-latest]
-                    sklearn_version : ["1.4.0", "1.5.0", "1.5.2"]
+                    sklearn : ["1.4.0", "1.5.0", "1.5.2"]
             steps:
                 -   uses: actions/checkout@v4
                 -   name: Setup python
@@ -30,4 +30,4 @@
                     with:
                         python-version: ${{ matrix.py }}
                         allow-prereleases: true
-                -   run: "pip install scikit-learn=={{ sklearn_version }}"
+                -   run: pip install scikit-learn==${{ matrix.sklearn }}
